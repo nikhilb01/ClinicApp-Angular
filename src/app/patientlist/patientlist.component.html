@@ -1,0 +1,186 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 py-4 text-center" style="margin-top: 30px;">
+      <h2 class="text-primary">Patient List</h2>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-md-12 py-4">
+      <a class="nav-link" href="#" routerLink="/addpatient" style="float: right;"> Add Patient </a>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Patient Name</th>
+            <th scope="col">Gender</th>
+            <th scope="col">Email</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let patient of patientList | paginate : { itemsPerPage : 5, currentPage : p }">
+            <th scope="row">{{patientList.indexOf(patient) + 1}}</th>
+            <td>{{ patient.PatientName }}</td>
+            <td>{{ patient.Gender }}</td>
+            <td>{{ patient.Email }}</td>
+            <td>
+              <button type="button" class="btn btn-primary" (click)="openModal(addPrescriptionModal, patient, false)">Add
+                Prescription</button>
+                &nbsp;<button type="button" class="btn btn-primary" (click)="openModal(showPrescriptionModal, patient, true)">Show All
+                  Prescription</button>
+                  &nbsp;<a  (click) = "openDeleteConfirmModal(template, patient.PatientId)" style="margin-left: 20px;">
+                    <span title="Delete Patient">
+                      <i class="fa fa-trash" aria-hidden="true"></i>
+                    </span>
+                  </a>
+            </td>
+          </tr>
+          <!-- <tr> -->
+          
+          <!-- </tr> -->
+        </tbody>
+      </table>
+      <div *ngIf="patientList?.length == 0" class="text-danger" style="text-align: center;">
+        No records exists.
+      </div>
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+  </div>
+</div>
+
+<ng-template #addPrescriptionModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="editProfileLabel">Add Prescription</h5>
+    <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <form  #addPrescriptionForm="ngForm" (ngSubmit)="addPrescriptionForm.form.valid && onSubmit()" novalidate>
+      <div class="form-group row">
+        <label for="medicineName" class="col-sm-4 col-form-label">Medicine Name</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" required name="medicineName" [ngClass]="{ 'is-invalid': addPrescriptionForm.submitted && medicineName.invalid }"
+          #medicineName="ngModel" [(ngModel)]="prescriptionModel.medicineName" id="medicineName"/>
+        </div>
+        <div *ngIf="addPrescriptionForm.submitted && medicineName.invalid" class="invalid-feedback">
+          <div *ngIf="medicineName.errors.required">Medicine name is required</div>
+      </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">Morning</label>
+        <div class="col-sm-4">
+          <div class="custom-control custom-radio custom-control-inline">
+            <input id="yes_morning" type="radio" class="custom-control-input" [(ngModel)]="prescriptionModel.morning" value="true" name="morning">
+            <label class="custom-control-label" for="yes_morning">Yes</label>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="custom-control custom-radio custom-control-inline">
+            <input id="no_morning" type="radio" class="custom-control-input" [(ngModel)]="prescriptionModel.morning" value="false" name="morning">
+            <label class="custom-control-label" for="no_morning">No</label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">Afternoon</label>
+        <div class="col-sm-4">
+          <div class="custom-control custom-radio custom-control-inline">
+            <input id="yes_afternoon" type="radio" class="custom-control-input" [(ngModel)]="prescriptionModel.afternoon" value="true" name="afternoon">
+            <label class="custom-control-label" for="yes_afternoon">Yes</label>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="custom-control custom-radio custom-control-inline">
+            <input id="no_afternoon" type="radio" class="custom-control-input" [(ngModel)]="prescriptionModel.afternoon" value="false" name="afternoon">
+            <label class="custom-control-label" for="no_afternoon">No</label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">Night</label>
+        <div class="col-sm-4">
+          <div class="custom-control custom-radio custom-control-inline">
+            <input id="yes_night" type="radio" class="custom-control-input" [(ngModel)]="prescriptionModel.night" value="true" name="night">
+            <label class="custom-control-label" for="yes_night">Yes</label>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="custom-control custom-radio custom-control-inline">
+            <input id="no_night" type="radio" class="custom-control-input" [(ngModel)]="prescriptionModel.night" value="false" name="night">
+            <label class="custom-control-label" for="no_night">No</label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">Before Eat</label>
+        <div class="col-sm-4">
+          <div class="custom-control custom-radio custom-control-inline">
+            <input id="yes_beforeeat" type="radio" class="custom-control-input" [(ngModel)]="prescriptionModel.beforeeat" value="true" name="beforeeat">
+            <label class="custom-control-label" for="yes_beforeeat">Yes</label>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="custom-control custom-radio custom-control-inline">
+            <input id="no_beforeeat" type="radio" class="custom-control-input" [(ngModel)]="prescriptionModel.beforeeat" value="false" name="beforeeat">
+            <label class="custom-control-label" for="no_beforeeat">No</label>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Close</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+
+<ng-template #showPrescriptionModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="editProfileLabel">Prescriptions</h5>
+    <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <form  #showrescriptionForm="ngForm" novalidate>
+      <div class="form-group row">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Medicine Name</th>
+              <th scope="col">Morning</th>
+              <th scope="col">Afternoon</th>
+              <th scope="col">Night</th>
+              <th scope="col">BeforEat</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let prescription of prescriptionList; let i = index;">
+              <th scope="row">{{ i + 1 }}</th>
+              <td>{{ prescription.MedicineName }}</td>
+              <td>{{ prescription.Morning ? "Yes" : "No"}}</td>
+              <td>{{ prescription.Afternoon ? "Yes" : "No"}}</td>
+              <td>{{ prescription.Night ? "Yes" : "No" }}</td>
+              <td>{{ prescription.BeforeEat ? "Yes" : "No" }}</td>
+              
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Do you want to delete?</p>
+    <button type="button" class="btn btn-default" (click)="confirm()" >Yes</button>
+    <button type="button" class="btn btn-primary" (click)="decline()" >No</button>
+  </div>
+</ng-template>

@@ -1,0 +1,56 @@
+<div style="margin-top: 75px;">
+    <div class="row">
+        <div class="col-md-2" style="margin-left: 10px;">
+    <div class="form-group">
+        <label for="ddlIsSuperAdmin"><h5>Medicine Status:</h5></label>
+        <select id="ddlIsSuperAdmin" name="IsSuperAdmin"(change)="onChange($event.target.value)"  class="form-control" >
+          <option value="true">Delivered</option>
+          <option value="false" selected>Non-Delivered </option>
+        </select>
+      </div>
+    </div>
+    </div>
+</div>
+
+
+
+<div class="container">
+    <div class="row">
+      <div class="col-md-12 py-4 text-center">
+        <h2 class="text-primary">Medicine List</h2>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-12 py-4">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Patient Name</th>
+                <th scope="col">Medicine Name</th>
+                <th scope="col">Delivered</th>
+                <!-- <th scope="col">Action</th> -->
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let medicine of medicineList | paginate : { itemsPerPage : 5, currentPage : p }; let i = index">
+                <th scope="row">{{medicineList.indexOf(medicine) + 1}}</th>
+                <td>{{ medicine.PatientName }}</td>
+                <td>{{ medicine.MedicineName }}</td>
+                <td>{{ medicine.IsDelivered ? "Yes" : "No"}}</td>
+                <!-- <td>
+                  <button type="button" class="btn btn-primary" (click)="updateMedicineStatus(medicine.PrescriptionId)">Deliver</button>                    
+                </td> -->
+              </tr>
+            </tbody>
+          </table>
+          <div *ngIf="medicineList?.length == 0" class="text-danger" style="text-align: center;">
+            No records exists.
+          </div>
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+      </div>
+  </div>
+  
+
+  

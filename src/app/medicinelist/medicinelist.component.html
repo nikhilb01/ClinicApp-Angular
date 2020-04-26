@@ -1,0 +1,47 @@
+
+<form #checkboxForm="ngForm" (submit)="deliveMedicines()">
+<div class="container">
+    <div class="row">
+      <div class="col-md-12 py-4 text-center" style="margin-top: 30px;">
+        <h2 class="text-primary">Medicine List</h2>
+      </div>
+    </div>
+    <!-- <button type="button" class="btn btn-primary" type="submit">Deliver</button>                     -->
+
+    <div class="row justify-content-center">
+        <div class="col-md-12 py-4">
+    <button type="button" class="btn btn-primary" type="submit" style="float: right;
+    margin-bottom: 12px;">Deliver Medicine</button>                    
+
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th><input type="checkbox"  id="customCheck1" (click)="selectAllChange()" name="selectAll" [(ngModel)]="selectAllChecked" ></th>
+                <th scope="col">#</th>
+                <th scope="col">Patient Name</th>
+                <th scope="col">Medicine Name</th>
+                <th scope="col">Delivered</th>
+                <!-- <th scope="col">Action</th> -->
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let medicine of medicineList | paginate : { itemsPerPage : 5, currentPage : p }; let i = index">
+               <th scope="row"> <input type="checkbox"  id="customCheck1" (change)="test(medicine.PrescriptionId)" name="chkMedicine_{{medicine.PrescriptionId}}" [(ngModel)]="medicine.checked" value="medicine.PrescriptionId" ></th>
+                <th scope="row">{{medicineList.indexOf(medicine) + 1}}</th>
+                <td>{{ medicine.PatientName }}</td>
+                <td>{{ medicine.MedicineName }}</td>
+                <td>{{ medicine.IsDelivered ? "Yes" : "No"}}</td>
+                <!-- <td>
+                  <button type="button" class="btn btn-primary" (click)="updateMedicineStatus(medicine.PrescriptionId)">Deliver</button>                    
+                </td> -->
+              </tr>
+            </tbody>
+          </table>
+          <div *ngIf="medicineList?.length == 0" class="text-danger" style="text-align: center;">
+            No records exists.
+          </div>
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+      </div>
+  </div>
+</form>

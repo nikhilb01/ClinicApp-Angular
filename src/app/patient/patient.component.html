@@ -1,0 +1,374 @@
+<div class="container">
+    <!-- <div class="row justify-content-center"> -->
+
+
+    <form #addPatientForm="ngForm" (ngSubmit)="addPatientForm.form.valid && addPatient()" novalidate
+        style="margin-top: 45px;">
+
+        <h2 class="text-center text-primary">Add Patient</h2>
+        <hr>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="Patientname" required [(ngModel)]="model.patientname"
+                        [ngClass]="{ 'is-invalid': addPatientForm.submitted && patientname.invalid }"
+                        #patientname="ngModel" placeholder="Patient Name">
+                    <div *ngIf="addPatientForm.submitted && patientname.invalid" class="invalid-feedback">
+                        <div *ngIf="patientname.errors.required">Patient name is required</div>
+                    </div>
+                </div>
+                <!-- <div class="form-group">
+        <label for="ddlGender">Gender:</label>
+        <input type="radio" value="male" name="gender" [ngModel]="model.gender" required #gender="ngModel"> Male
+<input type="radio" value="female" name="gender" [ngModel]="mode.gender" required #gender="ngModel"> Female
+
+<div *ngIf="gender.invalid"> 
+	  Gender required. 
+</div>
+      </div> -->
+                <!-- <div class="form-group">
+        <label for="ddlGender">Gender:</label>
+        <br>
+        <input type="radio" value="male"  name="gender" required [(ngModel)]="model.gender" [ngClass]="{ 'is-invalid': addPatientForm.submitted && gender.invalid }"  #gender="ngModel" >Male
+        <input type="radio" value="female" name="gender" required [(ngModel)]="model.gender" [ngClass]="{ 'is-invalid': addPatientForm.submitted && gender.invalid }"  >Female
+        <div *ngIf="addPatientForm.submitted && gender.invalid" class="invalid-feedback">
+            <div *ngIf="gender.errors.required">Gender is required</div>
+        </div>
+    </div> -->
+
+                <div class="group-gap">
+                    <h6 class="mb-3">Gender</h6>
+                    <div class="d-block my-3">
+
+                        <div class="custom-control custom-radio">
+                            <input id="male" type="radio" class="custom-control-input" value="male" name="gender"
+                                #gender="ngModel" [(ngModel)]="model.gender"
+                                [ngClass]="{ 'is-invalid': addPatientForm.submitted && gender.invalid }" required>
+                            <label class="custom-control-label" for="male">Male</label>
+                        </div>
+
+                        <div class="custom-control custom-radio">
+                            <input id="female" type="radio" class="custom-control-input" value="female" name="gender"
+                                #gender="ngModel" [(ngModel)]="model.gender"
+                                [ngClass]="{ 'is-invalid': addPatientForm.submitted && gender.invalid }" required>
+                            <label class="custom-control-label" for="female">Female</label>
+                        </div>
+
+                        <div *ngIf="addPatientForm.submitted && gender.invalid" class="invalid-feedback">
+                            <div *ngIf="gender.errors.required">Gender is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="text" pattern="[0-9]*" class="form-control" name="Age" required [(ngModel)]="model.age"
+                        [ngClass]="{ 'is-invalid': addPatientForm.submitted && age.invalid }" #age="ngModel"
+                        placeholder="Age">
+                    <div *ngIf="addPatientForm.submitted && age.invalid" class="invalid-feedback">
+                        <div *ngIf="age.errors.required">Age is required</div>
+                        <div *ngIf="age.errors.pattern">
+                            Only numbers allowed.
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="MobileNumber" required
+                        [(ngModel)]="model.mobilenumber"
+                        [ngClass]="{ 'is-invalid': addPatientForm.submitted && mobilenumber.invalid }"
+                        #mobilenumber="ngModel" [pattern]="mobNumberPattern" placeholder="Mobile Number">
+                    <div *ngIf="addPatientForm.submitted && mobilenumber.invalid" class="invalid-feedback">
+                        <div *ngIf="mobilenumber.errors.required">Mobile Number is required</div>
+                        <div *ngIf="mobilenumber.errors.pattern">
+                            Mobile number not valid.
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="Email" required [(ngModel)]="model.Email"
+                        [ngClass]="{ 'is-invalid': addPatientForm.submitted && email.invalid }" #email="ngModel"
+                        placeholder="Email" email>
+                    <div *ngIf="addPatientForm.submitted && email.invalid" class="invalid-feedback">
+                        <div *ngIf="email.errors.required">Email is required</div>
+                        <div *ngIf="email.errors.email">Email must be a valid email address</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <!-- <input type="text" class="form-control" name="Remark" required [(ngModel)]="model.remark" [ngClass]="{ 'is-invalid': addPatientForm.submitted && remark.invalid }"  #remark="ngModel" placeholder="Remark">
+        <div *ngIf="addPatientForm.submitted && remark.invalid" class="invalid-feedback">
+            <div *ngIf="remark.errors.required">Remark is required</div>
+        </div> -->
+                    <!-- <input type="text" class="form-control" placeholder="Remark" required [(ngModel)]="model.remark" [ngClass]="{ 'is-invalid': addPatientForm.submitted && remark.invalid }"  #remark="ngModel"> -->
+                    <!-- </textarea> -->
+                    <!-- <div *ngIf="addPatientForm.submitted && remark.invalid" class="invalid-feedback">
+            <div *ngIf="remark.errors.required">Remark is required</div>
+        </div> -->
+
+                    <div class="form-group">
+                        <textarea class="form-control" name="Remark" required [(ngModel)]="model.remark"
+                            [ngClass]="{ 'is-invalid': addPatientForm.submitted && remark.invalid }" #remark="ngModel"
+                            placeholder="Remark"></textarea>
+                        <div *ngIf="addPatientForm.submitted && remark.invalid" class="invalid-feedback">
+                            <div *ngIf="remark.errors.required">Remark is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder="Visited Date" class="form-control" bsDatepicker placement="top"
+                            name="VisitedDate" required [(ngModel)]="model.visiteddate"
+                            [ngClass]="{ 'is-invalid': addPatientForm.submitted && visiteddate.invalid }"
+                            #visiteddate="ngModel">
+
+                        <div *ngIf="addPatientForm.submitted && visiteddate.invalid" class="invalid-feedback">
+                            <div *ngIf="visiteddate.errors.required">Visited Date is required</div>
+                        </div>
+                    </div>
+                    <!-- <div class="custom-control"> -->
+                        <div class="form-group">
+                            <textarea class="form-control" 
+                                name="address" required
+                                [(ngModel)]="model.address"
+                                [ngClass]="{ 'is-invalid': addPatientForm.submitted && address.invalid }"
+                                #address="ngModel"
+                                placeholder="Patient Address"></textarea>
+                            <div *ngIf="addPatientForm.submitted && address.invalid"
+                                class="invalid-feedback">
+                                <div *ngIf="address.errors.required">Address is required</div>
+                            </div>
+                        </div>
+                    <!-- </div> -->
+                </div>
+
+
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="Category" required [(ngModel)]="model.category"
+                        [ngClass]="{ 'is-invalid': addPatientForm.submitted && category.invalid }" #category="ngModel"
+                        placeholder="Category">
+                    <div *ngIf="addPatientForm.submitted && category.invalid" class="invalid-feedback">
+                        <div *ngIf="category.errors.required">Category is required</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="sel1">
+                        <h6 class="mb-3">Consult Doctor:</h6>
+                    </label>
+                    <select class="form-control" name="consultdoctor" required id="sel1"
+                        [(ngModel)]="model.consultdoctor"
+                        [ngClass]="{ 'is-invalid': addPatientForm.submitted && consultdoctor.invalid }"
+                        #consultdoctor="ngModel">
+                        <option [ngValue]="null">Select</option>
+                        <option *ngFor="let user of users" value={{user.Id}}>{{user.UserName}}</option>
+                        <!-- <option>Mr. pqr</option>
+    <option>Mr. xyz</option>
+    <option>Mrs. aa</option> -->
+                    </select>
+                    <div *ngIf="addPatientForm.submitted && consultdoctor.invalid" class="invalid-feedback">
+                        <div *ngIf="consultdoctor.errors.required">Consult Doctor is required</div>
+                    </div>
+                </div>
+                <div class="group-gap">
+                    <h6 class="mb-3">Is Police Verification Required</h6>
+                    <div class="d-block my-3">
+
+                        <div class="custom-control custom-radio">
+                            <input id="yes" type="radio" class="custom-control-input" value="true"
+                                name="ispoliceverificationrequired" #ispoliceverificationrequired="ngModel"
+                                [(ngModel)]="model.ispoliceverificationrequired"
+                                [ngClass]="{ 'is-invalid': addPatientForm.submitted && ispoliceverificationrequired.invalid }"
+                                required>
+                            <label class="custom-control-label" for="yes">Yes</label>
+                        </div>
+
+                        <div class="custom-control custom-radio">
+                            <input id="no" type="radio" class="custom-control-input" value="false"
+                                name="ispoliceverificationrequired" #ispoliceverificationrequired="ngModel"
+                                [(ngModel)]="model.ispoliceverificationrequired"
+                                [ngClass]="{ 'is-invalid': addPatientForm.submitted && ispoliceverificationrequired.invalid }"
+                                required>
+                            <label class="custom-control-label" for="no">No</label>
+                        </div>
+
+                        <div *ngIf="addPatientForm.submitted && ispoliceverificationrequired.invalid"
+                            class="invalid-feedback">
+                            <div *ngIf="ispoliceverificationrequired.errors.required">Ispoliceverificationrequired is
+                                required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="group-gap">
+                    <h6 class="mb-3">Co-ordinating Person</h6>
+                    <div class="d-block my-3">
+
+                        <div class="custom-control">
+                            <input type="text" style="margin-bottom: 10px;" class="form-control"
+                                name="coordinatingpersonname" required [(ngModel)]="CoordinatingPerson.name"
+                                [ngClass]="{ 'is-invalid': addPatientForm.submitted && coordinatingpersonname.invalid }"
+                                #coordinatingpersonname="ngModel" placeholder="Co-ordinating Person Name">
+                            <div *ngIf="addPatientForm.submitted && coordinatingpersonname.invalid"
+                                class="invalid-feedback">
+                                <div *ngIf="coordinatingpersonname.errors.required">Co-ordinating person name is
+                                    required</div>
+                            </div>
+                        </div>
+
+                        <div class="custom-control">
+                            <input type="text" class="form-control" style="margin-bottom: 10px;"
+                                name="coordinationpersonmobilenumber" required
+                                [(ngModel)]="CoordinatingPerson.mobilenumber"
+                                [ngClass]="{ 'is-invalid': addPatientForm.submitted && coordinationpersonmobilenumber.invalid }"
+                                #coordinationpersonmobilenumber="ngModel" [pattern]="mobNumberPattern"
+                                placeholder="Co-ordinating Person Mobile Number">
+                            <div *ngIf="addPatientForm.submitted && coordinationpersonmobilenumber.invalid"
+                                class="invalid-feedback">
+                                <div *ngIf="coordinationpersonmobilenumber.errors.required">Mobile Number is required
+                                </div>
+                                <div *ngIf="coordinationpersonmobilenumber.errors.pattern">
+                                    Mobile number not valid.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="custom-control">
+                            <div class="form-group">
+                                <textarea class="form-control" style="margin-bottom: 10px;"
+                                    name="coordinatingpersonaddress" required
+                                    [(ngModel)]="CoordinatingPerson.address"
+                                    [ngClass]="{ 'is-invalid': addPatientForm.submitted && coordinatingpersonaddress.invalid }"
+                                    #coordinatingpersonaddress="ngModel"
+                                    placeholder="Co-ordinating Person Address"></textarea>
+                                <div *ngIf="addPatientForm.submitted && coordinatingpersonaddress.invalid"
+                                    class="invalid-feedback">
+                                    <div *ngIf="coordinatingpersonaddress.errors.required">Address is required</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div *ngIf="addPatientForm.submitted && ispoliceverificationrequired.invalid"
+                            class="invalid-feedback">
+                            <div *ngIf="ispoliceverificationrequired.errors.required">Ispoliceverificationrequired is
+                                required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <form #addressForm="ngForm" class="container mt-3" (ngSubmit)="logValue()"> -->
+        <!-- <div class="row">
+            <div class="col-6">
+                <button type="button" class="btn btn-primary mb-2" (click)="addAddress()">Add Prescription</button>
+                <section class="container border mb-4 p-3" *ngFor="let prescription of prescriptions; let i = index;">
+                    <div class="row">
+                        <div class="col-6">
+                            <h4>Prescription {{i + 1}}</h4>
+                        </div>
+                        <div class="col-6 text-right">
+                            <button type="button" class="btn btn-danger btn-sm"
+                                (click)="removeAddress(i)">Remove</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Medicine Name</label>
+                                <input type="text" class="form-control" required [(ngModel)]="prescription.medicinename" [ngClass]="{ 'is-invalid': addPatientForm.submitted && medicinename.invalid }"
+                                #medicinename="ngModel" name="medicinename_{{prescription.id}}" placeholder="Medicine Name" />
+
+                                <div *ngIf="addPatientForm.submitted && medicinename.invalid" class="invalid-feedback">
+                                    <div *ngIf="medicinename.errors.required">Medicine name is required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Morning</label>
+                                <br>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input id="yes_morning_prescription_{{prescription.id}}" type="radio" value="true" [(ngModel)]="prescription.morning" name="morning_{{prescription.id}}" class="custom-control-input">
+                                    <label class="custom-control-label" for="yes_morning_prescription_{{prescription.id}}">Yes</label>
+                                </div>
+
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input id="no_morning_prescription_{{prescription.id}}" type="radio" value="false" [(ngModel)]="prescription.morning" name="morning_{{prescription.id}}" class="custom-control-input">
+                                    <label class="custom-control-label" for="no_morning_prescription_{{prescription.id}}">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label>Afternoon</label>
+                                <br>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input id="yes_afternoon_{{prescription.id}}" type="radio" class="custom-control-input" value="true"
+                                    name="afternoon_{{prescription.id}}"
+                                        [(ngModel)]="prescription.afternoon"
+                                        >
+                                    <label class="custom-control-label" for="yes_afternoon_{{prescription.id}}">Yes</label>
+                                </div>
+
+                                <div class="custom-control custom-radio custom-control-inline">
+                                  <input id="no_afternoon_{{prescription.id}}" type="radio" class="custom-control-input" value="false"
+                                    name="afternoon_{{prescription.id}}"
+                                        [(ngModel)]="prescription.afternoon"
+                                        >
+                                    <label class="custom-control-label" for="no_afternoon_{{prescription.id}}">No</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label>Night</label>
+                                <br>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input id="yes_night_{{prescription.id}}" type="radio" class="custom-control-input" value="true"
+                                    name="night_{{prescription.id}}"
+                                        [(ngModel)]="prescription.night"
+                                        >
+                                    <label class="custom-control-label" for="yes_night_{{prescription.id}}">Yes</label>
+                                </div>
+
+                                <div class="custom-control custom-radio custom-control-inline">
+                                  <input id="no_night_{{prescription.id}}" type="radio" class="custom-control-input" value="false"
+                                    name="night_{{prescription.id}}"
+                                        [(ngModel)]="prescription.night"
+                                        >
+                                    <label class="custom-control-label" for="no_night_{{prescription.id}}">No</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label>Before Eat</label>
+                                <br>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input id="yes_beforeeat_{{prescription.id}}" type="radio" class="custom-control-input" value="true"
+                                    name="beforeeat_{{prescription.id}}"
+                                        [(ngModel)]="prescription.beforeeat"
+                                        >
+                                    <label class="custom-control-label" for="yes_beforeeat_{{prescription.id}}">Yes</label>
+                                </div>
+
+                                <div class="custom-control custom-radio custom-control-inline">
+                                  <input id="no_beforeeat_{{prescription.id}}" type="radio" class="custom-control-input" value="false"
+                                    name="beforeeat_{{prescription.id}}"
+                                        [(ngModel)]="prescription.beforeeat"
+                                        >
+                                    <label class="custom-control-label" for="no_beforeeat_{{prescription.id}}">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div> -->
+
+        <!-- </form> -->
+        <div class="row">
+            <div class="col-sm-12">
+                <button class="btn btn-success" type="submit">Add Patient</button>
+                <button class="btn btn-default" type="button" (click)="cancel()">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>
+<!-- </div> -->
